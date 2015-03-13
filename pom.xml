@@ -12,8 +12,8 @@
 	<name>LearnANTLR</name>
 
 	<properties>
-		<antlr4.plugin.version>4.3</antlr4.plugin.version>
-		<antlr4.version>4.3</antlr4.version>
+		<antlr4.plugin.version>4.5</antlr4.plugin.version>
+		<antlr4.version>4.5</antlr4.version>
 		<logback.version>1.0.13</logback.version>
 		<slf4j.version>1.7.5</slf4j.version>
 	</properties>
@@ -63,6 +63,7 @@
 				<configuration>
 					<arguments>
 						<argument>-visitor</argument>
+<!-- 						<argument>-Dlanguage=JavaScript</argument> -->
 					</arguments>
 				</configuration>
 				<executions>
