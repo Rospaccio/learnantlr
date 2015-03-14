@@ -14,6 +14,6 @@ SPHERE_KEYWORD : 'sphere' ;
 
 CUBE_KEYWORD : 'cube' ;
 
-NUMBER : [1-9]+ ;
+NUMBER : [0-9]+ ;
 
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines ;
