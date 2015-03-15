@@ -11,6 +11,7 @@ import org.merka.learnantlr.language.ShapePlacerParser.CoordinateComponentContex
 import org.merka.learnantlr.language.ShapePlacerParser.CoordinatesContext;
 import org.merka.learnantlr.language.ShapePlacerParser.CubeDefinitionContext;
 import org.merka.learnantlr.language.ShapePlacerParser.ProgramContext;
+import org.merka.learnantlr.language.ShapePlacerParser.RegionDefinitionContext;
 import org.merka.learnantlr.language.ShapePlacerParser.ShapeDefinitionContext;
 import org.merka.learnantlr.language.ShapePlacerParser.SphereDefinitionContext;
 import org.merka.learnantlr.language.ShapePlacerVisitor;
@@ -89,6 +90,16 @@ public class BasicDumpVisitor implements ShapePlacerVisitor<String> {
 			builder.append(".").append(ctx.children.get(2).accept(this));
 		}
 		
+		return builder.toString();
+	}
+
+	public String visitRegionDefinition(RegionDefinitionContext ctx) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("region").append(" ");
+		builder.append(ctx.getChild(1).accept(this));
+		builder.append("{ ");
+		builder.append(ctx.getChild(3));
+		builder.append("}");
 		return builder.toString();
 	}
 

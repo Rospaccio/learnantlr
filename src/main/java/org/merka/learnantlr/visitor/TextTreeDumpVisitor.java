@@ -8,6 +8,7 @@ import org.merka.learnantlr.language.ShapePlacerParser.CoordinateComponentContex
 import org.merka.learnantlr.language.ShapePlacerParser.CoordinatesContext;
 import org.merka.learnantlr.language.ShapePlacerParser.CubeDefinitionContext;
 import org.merka.learnantlr.language.ShapePlacerParser.ProgramContext;
+import org.merka.learnantlr.language.ShapePlacerParser.RegionDefinitionContext;
 import org.merka.learnantlr.language.ShapePlacerParser.ShapeDefinitionContext;
 import org.merka.learnantlr.language.ShapePlacerParser.SphereDefinitionContext;
 import org.merka.learnantlr.language.ShapePlacerVisitor;
@@ -37,34 +38,34 @@ public class TextTreeDumpVisitor implements ShapePlacerVisitor<String> {
 	}
 
 	public String visitTerminal(TerminalNode arg0) {
-		return indent() + "[terminal] '" + arg0.getText() + "'" + System.lineSeparator();
+		return indent() + "[terminal] '" + arg0.getText() + "'" + n();
 	}
 
 	public String visitProgram(ProgramContext ctx) {
 		StringBuilder builder = new StringBuilder();
-		builder.append("program").append(System.lineSeparator());
+		builder.append(indent()).append("[program]").append(n());
 		builder.append(visitChildren(ctx));
 		return builder.toString();		
 	}
 
 	public String visitShapeDefinition(ShapeDefinitionContext ctx) {
-		return indent() + "[shape definition]" + System.lineSeparator() + visitChildren(ctx);
+		return indent() + "[shape definition]" + n() + visitChildren(ctx);
 	}
 
 	public String visitSphereDefinition(SphereDefinitionContext ctx) {
-		return indent() + "[sphere definition]" + System.lineSeparator() + visitChildren(ctx);
+		return indent() + "[sphere definition]" + n() + visitChildren(ctx);
 	}
 
 	public String visitCubeDefinition(CubeDefinitionContext ctx) {
-		return indent() + "[cube definition]" + System.lineSeparator() + visitChildren(ctx);
+		return indent() + "[cube definition]" + n() + visitChildren(ctx);
 	}
 
 	public String visitCoordinates(CoordinatesContext ctx) {
-		return indent() + "[coordinates]" + System.lineSeparator() + visitChildren(ctx);
+		return indent() + "[coordinates]" + n() + visitChildren(ctx);
 	}
 
 	public String visitCoordinateComponent(CoordinateComponentContext ctx) {
-		return indent() + "[coordinates component]" + System.lineSeparator() + visitChildren(ctx);
+		return indent() + "[coordinates component]" + n() + visitChildren(ctx);
 	}
 
 	private String indent(){
@@ -91,4 +92,12 @@ public class TextTreeDumpVisitor implements ShapePlacerVisitor<String> {
 		this.indentLevel = indentLevel;
 	}
 
+	public String visitRegionDefinition(RegionDefinitionContext ctx) {
+		return indent() + "[region]" + n() + visitChildren(ctx);
+	}
+
+	private String n(){
+		return System.lineSeparator();
+	}
+	
 }
