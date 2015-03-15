@@ -8,7 +8,9 @@ sphereDefinition : SPHERE_KEYWORD coordinates ;
 
 cubeDefinition : CUBE_KEYWORD coordinates ;
 
-coordinates : NUMBER NUMBER NUMBER ;
+coordinates : coordinateComponent coordinateComponent coordinateComponent ;
+
+coordinateComponent : NUMBER ('.'NUMBER)? ;
 
 SPHERE_KEYWORD : 'sphere' ;
 

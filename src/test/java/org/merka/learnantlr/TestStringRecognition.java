@@ -23,6 +23,7 @@ import org.merka.learnantlr.language.ShapePlacerLexer;
 import org.merka.learnantlr.language.ShapePlacerParser;
 import org.merka.learnantlr.language.ShapePlacerParser.ProgramContext;
 import org.merka.learnantlr.visitor.BasicDumpVisitor;
+import org.merka.learnantlr.visitor.TextTreeDumpVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +39,8 @@ public class TestStringRecognition {
 														"cube 0 0 0",
 														"sphere 0 0 0 cube 0 0 0 ",
 														"cube 0 0 0 sphere 0 0 0",
-														"sphere 10 0 100"};
+														"sphere 10 0 100",
+														"sphere 12.3 0.0 1.0 cube 0.2334 12.12 1.1"};
 	public static final String[] invalidInputStrings = {"sphere 12 12 12 cub 2 3 4 cube 4 4 4 sphere 3 3 3",
 														"sphere 12 12 12" + System.lineSeparator() + " cube 2 3 4 4;",
 														"sphere 12 12" + System.lineSeparator() + " cube 2 3 4 sphere 2 2 2" };
@@ -47,7 +49,7 @@ public class TestStringRecognition {
 	@Test
 	public void testExploratoryString() throws IOException {
 		
-		String simplestProgram = "sphere 12 12 12 cube 2 3 4 cube 4 4 4 sphere 3 3 3";
+		String simplestProgram = "sphere 12.3 12 12 cube 2 3 4 cube 4 4 4 sphere 3 3 3";
 		
 		CharStream inputCharStream = new ANTLRInputStream(new StringReader(simplestProgram));
 		TokenSource tokenSource = new ShapePlacerLexer(inputCharStream);
@@ -88,7 +90,7 @@ public class TestStringRecognition {
 	
 	@Test
 	public void testJsonVisitor() throws IOException{
-		String program = "sphere 0 0 0 cube 5 5 5 sphere 10 1 3";
+		String program = "sphere 0.1 1.0 1.1 cube 5.1234 5 5 sphere 10 1 3";
 		TestErrorListener errorListener = new TestErrorListener(); 
 		ProgramContext context = parseProgram(program, errorListener);
 		
@@ -96,12 +98,22 @@ public class TestStringRecognition {
 		
 		BasicDumpVisitor visitor = new BasicDumpVisitor();
 		
-		String jsonRepresentation = context.accept(visitor);
+		String jsonRepresentation = visitor.visit(context);
 		logger.info("String return by the visitor = " + jsonRepresentation);
 //		assertTrue(isValidString(jsonRepresentation));
 		
 	}
 	
+	@Test
+	public void testTextTreeDumpVisitor() throws IOException{
+		String program = "cube 1.0 0.1 1.1 sphere 1.1234 3 4";
+		TestErrorListener errorListener = new TestErrorListener();
+		ProgramContext parseTree = parseProgram(program, errorListener);
+		TextTreeDumpVisitor visitor = new TextTreeDumpVisitor();
+		String output = visitor.visit(parseTree);
+		logger.info("\n\nTree:\n\n" + output);
+	}
+	 
 	private boolean isValidString(String inputString) throws IOException{
 		TestErrorListener errorListener = new TestErrorListener();
 		ProgramContext context = parseProgram(inputString, errorListener);

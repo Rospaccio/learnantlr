@@ -1,10 +1,13 @@
 package org.merka.learnantlr.visitor;
 
+import java.math.BigDecimal;
+
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.merka.learnantlr.language.ShapePlacerParser.CoordinateComponentContext;
 import org.merka.learnantlr.language.ShapePlacerParser.CoordinatesContext;
 import org.merka.learnantlr.language.ShapePlacerParser.CubeDefinitionContext;
 import org.merka.learnantlr.language.ShapePlacerParser.ProgramContext;
@@ -20,8 +23,7 @@ public class BasicDumpVisitor implements ShapePlacerVisitor<String> {
 	private static final Logger logger = LoggerFactory.getLogger(BasicDumpVisitor.class);
 	
 	public String visit(ParseTree arg0) {
-		
-		return null;
+		return arg0.accept(this);
 	}
 
 	public String visitChildren(RuleNode arg0) {
@@ -35,7 +37,6 @@ public class BasicDumpVisitor implements ShapePlacerVisitor<String> {
 	}
 
 	public String visitTerminal(TerminalNode arg0) {
-		logger.info("visiting terminal node: " + arg0.toStringTree());
 		return arg0.getText();
 	}
 
@@ -77,6 +78,16 @@ public class BasicDumpVisitor implements ShapePlacerVisitor<String> {
 		builder.append(keyword).append(" ");
 		
 		builder.append(context.children.get(1).accept(this)).append(" ");
+		
+		return builder.toString();
+	}
+
+	public String visitCoordinateComponent(CoordinateComponentContext ctx) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(ctx.children.get(0).accept(this));
+		if(ctx.children.size() == 3){
+			builder.append(".").append(ctx.children.get(2).accept(this));
+		}
 		
 		return builder.toString();
 	}
