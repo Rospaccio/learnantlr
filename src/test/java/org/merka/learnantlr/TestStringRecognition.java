@@ -35,6 +35,7 @@ public class TestStringRecognition {
 														"sphere 12 12 12" + System.lineSeparator() + " cube 2 3 4",
 														"sphere 12 12 12" + System.lineSeparator() + " cube 2 3 4 sphere 2 2 2",
 														"sphere 12 12 12" + System.lineSeparator() + "cube 2 3 4",
+														"sphere 12 12 12" + System.lineSeparator() + "cube 2" + System.lineSeparator() + " 3 4",
 														"sphere 0 0 0",
 														"cube 0 0 0",
 														"sphere 0 0 0 cube 0 0 0 ",
@@ -42,7 +43,8 @@ public class TestStringRecognition {
 														"sphere 10 0 100",
 														"sphere 12.3 0.0 1.0 cube 0.2334 12.12 1.1",
 														"cube 0 0 0 region 10 10 10 { cube 3 3 3.2 }",
-														"cube 0 0 0 region 10 10 10 { cube 3 3 3.2 sphere 0.2 10 2.2 region 3 3 3 {cube 10 3 6} }"};
+														"cube 0 0 0 region 10 10 10 { cube 3 3 3.2 sphere 0.2 10 2.2 region 3 3 3 {cube 10 3 6} }",
+														"region 40 40 0.5 { cube 0 0 0 } region 10 10 10 { cube 3 3 3.2 sphere 0.2 10 2.2 region 3 3 3 {cube 10 3 6} }"};
 	
 	public static final String[] invalidInputStrings = {"sphere 12 12 12 cub 2 3 4 cube 4 4 4 sphere 3 3 3",
 														"sphere 12 12 12" + System.lineSeparator() + " cube 2 3 4 4;",
@@ -50,7 +52,8 @@ public class TestStringRecognition {
 														"cube 0 0 0 region 10 10 10 cube 3 3 3.2 ",
 														"cube 0 0 0 region 10 10 10  cube 3 3 3.2 }",
 														"cube 0 0 0 region 10 10 10 { cube 3 3 3.2 sphere 0.2 10 2.2 region 3 3 {cube 10 3 6} }",
-														"cube 0 0 0 region 10 10 10 { cube 3 3 3.2 sphere 0.2 10 2.2 region 3 3 3 10 3 6 }"};
+														"cube 0 0 0 region 10 10 10 { cube 3 3 3.2 sphere 0.2 10 2.2 region 3 3 3 10 3 6 }",
+														"region 40 40 0.5 { cube 0 0 0 region 10 10 10 { cube 3 3 3.2 sphere 0.2 10 2.2 region 3 3 3 {cube 10 3 6}}"};
 	
 	
 	@Test
