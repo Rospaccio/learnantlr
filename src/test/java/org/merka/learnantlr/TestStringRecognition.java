@@ -31,6 +31,9 @@ public class TestStringRecognition {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TestStringRecognition.class);
 	
+	/**
+	 * Valid language strings, must pass the tests
+	 */
 	public static final String[] validInputStrings = {	"sphere 12 12 12 cube 2 3 4 cube 4 4 4 sphere 3 3 3",
 														"sphere 12 12 12" + System.lineSeparator() + " cube 2 3 4",
 														"sphere 12 12 12" + System.lineSeparator() + " cube 2 3 4 sphere 2 2 2",
